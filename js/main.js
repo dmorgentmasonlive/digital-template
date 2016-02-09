@@ -10,6 +10,7 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('dude', 'assets/player.png', 32, 45);
     game.load.spritesheet('point', 'assets/point.png');
+    game.load.audio('hit', 'assets/hit.mp3');
 
 }
 
@@ -25,6 +26,8 @@ var score = 0;
 var score2 = 0;
 var scoreText;
 var scoreText2;
+    
+var hit;
 
 function create() {
 
@@ -90,6 +93,9 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     cursors2 = {up: game.input.keyboard.addKey(Phaser.Keyboard.W), down: game.input.keyboard.addKey(Phaser.Keyboard.S), left: game.input.keyboard.addKey(Phaser.Keyboard.A), right: game.input.keyboard.addKey(Phaser.Keyboard.D)}
     
+    //sound
+    hit = game.add.audio('hit');
+    
 }
 
 function update() {
@@ -141,6 +147,7 @@ function update() {
         player.frame = 4;
         if(game.physics.arcade.collide(player,player2))
         {
+            hit.play();
             player2.x = game.world.width - 64;
             player2.y = game.world.height-150;
         }
@@ -180,6 +187,7 @@ function update() {
         player2.frame = 4;
         if(game.physics.arcade.collide(player,player2))
         {
+            hit.play();
             player.x = 32;
             player.y = game.world.height-150;
         }
